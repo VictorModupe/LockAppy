@@ -1,11 +1,11 @@
 import { Text, View } from "react-native";
 
-function AllApps() {
+function Premium() {
   return (
     <View>
-      <Text>HI</Text>
+      <Text>Premium</Text>
     </View>
   );
 }
 
-export default AllApps;
+export default Premium;
