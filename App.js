@@ -1,4 +1,4 @@
-import { AppRegistry } from "react-native";
+import { AppRegistry, SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import LoginScreen from "./screens/LoginScreen";
@@ -25,11 +25,14 @@ import {
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Unlocked from "./screens/Unlocked";
 import Locked from "./screens/Locked";
+import Accountsettings from "./screens/Accountsettings";
+import Applicationsettings from "./screens/Applicationsettings";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
+const AppStack = createNativeStackNavigator();
 
 function AuthStack() {
   return (
@@ -113,11 +116,6 @@ function AuthStack() {
           headerTitleAlign: "center",
         }}
       />
-      {/* <Stack.Screen
-        name="DrawerNavigator"
-        component={DrawerNavigator}
-        options={{ headerShown: false }}
-      /> */}
       <Stack.Screen
         name="TabNavigator"
         component={TabNavigator}
@@ -137,8 +135,6 @@ function DrawerNavigator() {
         drawerContentStyle: { backgroundColor: "white" },
       }}
     >
-      {/* <Drawer.Screen name="AllApps" component={TabNavigator} /> */}
-      {/* <Drawer.Screen name="AllApps" component={AllApps} /> */}
       <Drawer.Screen name="AllApps" component={TopNavigator} />
     </Drawer.Navigator>
   );
@@ -148,6 +144,7 @@ function TopNavigator() {
   return (
     <TopTab.Navigator
       screenOptions={() => ({
+        swipeEnabled: true,
         tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: theme.colors.primary,
         tabBarIndicatorStyle: {
@@ -174,11 +171,21 @@ function TopNavigator() {
         },
         // tabBarGap: 10,
       })}
-      swipeEnabled={true}
+      // swipeEnabled={true}
     >
       <TopTab.Screen name="Unlocked" component={Unlocked} />
       <TopTab.Screen name="Locked" component={Locked} />
     </TopTab.Navigator>
+  );
+}
+
+function AppSettings() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="ApplicationSettings" component={Applicationsettings}  />
+      <Stack.Screen name="AccountSettings" component={Accountsettings}  />
+    </Stack.Navigator>
   );
 }
 
@@ -207,17 +214,6 @@ function TabNavigator() {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="Home"
-        component={AllApps}
-        options={{
-          title: "All Apps",
-          tabBarLabel: "All Apps",
-          tabBarIcon: ({ color, size }) => (
-            <AntDesign name="appstore1" size={size} color={color} />
-          ),
-        }}
-      /> */}
       <Tab.Screen
         name="Tools"
         component={Tools}
@@ -241,8 +237,8 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Settings"
-        component={Settings}
+        name="AppSettings"
+        component={AppSettings}
         options={{
           title: "Settings",
           tabBarLabel: "Settings",
@@ -254,22 +250,6 @@ function TabNavigator() {
     </Tab.Navigator>
   );
 }
-
-// function DrawerNavigator() {
-//   return (
-//     <Drawer.Navigator
-//       screenOptions={{
-//         headerStyle: { backgroundColor: theme.colors.primary },
-//         headerTintColor: "white",
-//         sceneContainerStyle: { backgroundColor: "white" },
-//         drawerContentStyle: { backgroundColor: "white" },
-//       }}
-//     >
-//       {/* <Drawer.Screen name="AllApps" component={TabNavigator} /> */}
-//       <Drawer.Screen name="AllApps" component={AllApps} />
-//     </Drawer.Navigator>
-//   );
-// }
 
 function Navigation() {
   return (
